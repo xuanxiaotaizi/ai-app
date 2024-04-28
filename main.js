@@ -8,6 +8,7 @@ const {
 } = require("electron/main");
 const path = require("node:path");
 const exec = require("child_process").exec
+app.commandLine.appendSwitch('disable-web-security');
 
 let win
 const createWindow = () => {
@@ -32,7 +33,7 @@ menu.append(
       {
         role: "help",
         accelerator:
-          process.platform === "darwin" ? "Alt+Cmd+I" : "Alt+Shift+I",
+          process.platform === "darwin" ? "Alt+Cmd+I" : "Alt+A",
         click: () => {
           // desktopCapturer
           //   .getSources({
@@ -53,7 +54,6 @@ menu.append(
 Menu.setApplicationMenu(menu);
 
 function screenWindow() {
-  console.log('__dirname', __dirname)
   let url = path.resolve(__dirname, './exe/ScreenCapture.exe')
 	let screenWindow  = exec(url, (err, stdout, stderr) => {
 		if (err) {
